@@ -4,18 +4,26 @@ import PIL.ImageOps
 import tensorflow as tf
 import glob
 import matplotlib.pyplot as plt
+
+
 modelLoaded = tf.keras.models.load_model('mnistconv.h5')
+
+#This line is useful for printing/visualizing numpy arrays of images nicely.
 np.set_printoptions(linewidth=500,precision=2)
 
 classes = ['zero','one','two','three','four','five','six','seven','eight','nine']
 
+
 filenames = glob.glob('./handwritten/*.png')
 
+# honestly not sure if I need figsize parameter here, since subplot is called later.
 plt.figure(figsize=(4,4))
 
 images = np.empty((len(filenames),28,28))
 for i,filename in enumerate(filenames):
+    # The 'L" converts the image into a single-channel grayscale image, I think
     pilImage = Image.open(filename).convert('L')
+    # I need to invert the image since in the PNG realm, 255 is white in 0 is black.
     pilImage = PIL.ImageOps.invert(pilImage)
 
     image = np.array(pilImage) / 255.0

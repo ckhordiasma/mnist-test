@@ -19,6 +19,7 @@ for i,filename in enumerate(filenames):
     pilImage = PIL.ImageOps.invert(pilImage)
 
     image = np.array(pilImage)
+    image = image / 255.0
     #print(image)
     plt.subplot(4,4,i+1)
     plt.xticks([])
